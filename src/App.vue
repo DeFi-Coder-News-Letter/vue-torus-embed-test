@@ -15,8 +15,7 @@ export default {
     async login() {
       try {
         const torus = new Torus();
-        window.torus = torus;
-        await torus.init("development");
+        await torus.init();
         await torus.ethereum.enable();
         const web3 = new Web3(torus.provider);
         web3.eth.getAccounts().then(accounts => {
