@@ -4,6 +4,7 @@
     <button v-if="publicAddress === ''" @click="login">Login</button>
     <button v-if="publicAddress !== ''" @click="changeProvider">Change Provider</button>
     <button v-if="publicAddress !== ''" @click="getUserInfo">Get User Info</button>
+    <button v-if="publicAddress !== ''" @click="logout">Logout</button>
   </div>
 </template>
 
@@ -22,8 +23,8 @@ export default {
     async login() {
       try {
         const torus = new Torus();
-        await torus.init('development');
-        await torus.ethereum.enable();
+        await torus.init("development", false);
+        await torus.login(); // await torus.ethereum.enable()
         const web3 = new Web3(torus.provider);
         web3.eth.getAccounts().then(accounts => {
           this.publicAddress = accounts[0]
@@ -33,6 +34,9 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    logout() {
+      window.torus.logout()
     },
     changeProvider() {
       window.torus.setProvider('rinkeby')
