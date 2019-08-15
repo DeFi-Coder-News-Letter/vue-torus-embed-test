@@ -36,7 +36,7 @@ export default {
       }
     },
     logout() {
-      window.torus.logout()
+      window.torus.logout().then(() => this.publicAddress = '')
     },
     changeProvider() {
       window.torus.setProvider('rinkeby')
